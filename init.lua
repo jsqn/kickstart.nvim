@@ -665,6 +665,16 @@ require("lazy").setup({
 			},
 		},
 	},
+	-- NOTE: This code is for autosaving
+	{
+		"https://git.sr.ht/~nedia/auto-save.nvim",
+		event = { "BufReadPre" },
+		opts = {
+			events = { "InsertLeave", "BufLeave" },
+			silent = false,
+			exclude_ft = { "neo-tree" },
+		},
+	},
 
 	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
@@ -844,7 +854,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "vim", "vimdoc" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
