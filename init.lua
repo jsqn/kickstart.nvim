@@ -83,7 +83,6 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -571,7 +570,7 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				-- pyright = {},
+				pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -663,16 +662,6 @@ require("lazy").setup({
 				-- is found.
 				-- javascript = { { "prettierd", "prettier" } },
 			},
-		},
-	},
-	-- NOTE: This code is for autosaving
-	{
-		"https://git.sr.ht/~nedia/auto-save.nvim",
-		event = { "BufReadPre" },
-		opts = {
-			events = { "InsertLeave", "BufLeave" },
-			silent = false,
-			exclude_ft = { "neo-tree" },
 		},
 	},
 
@@ -792,13 +781,13 @@ require("lazy").setup({
 		-- change the command in the config to whatever the name of that colorscheme is.
 		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		"https://github.com/ellisonleao/gruvbox.nvim",
+		"folke/tokyonight.nvim",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
 		init = function()
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("gruvbox")
+			vim.cmd.colorscheme("tokyonight-night")
 
 			-- You can configure highlights by doing something like:
 			vim.cmd.hi("Comment gui=none")
@@ -854,7 +843,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "vim", "vimdoc" },
+			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
