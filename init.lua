@@ -22,7 +22,6 @@
 
 What is Kickstart?
 
-  Kickstart.nvim is *not* a distribution.
 
   Kickstart.nvim is a starting point for your own configuration.
     The goal is that you can read every line of code, top-to-bottom, understand
@@ -848,6 +847,14 @@ require("lazy").setup({
 			auto_install = true,
 			highlight = {
 				enable = true,
+				-- Function to disable treesitter only in .tex files
+				disable = function(lang, buf)
+					local filename = vim.api.nvim_buf_get_name(buf)
+					if filename:match("%.tex$") and lang == "latex" then -- Check file extension
+						return true -- Disable for .tex files
+					end
+					return false
+				end,
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
 				--  If you are experiencing weird indenting issues, add the language to
 				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -893,7 +900,17 @@ require("lazy").setup({
 	--
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-	-- { import = 'custom.plugins' },
+	{ import = "custom.plugins" },
+
+	{
+		"lervag/vimtex",
+		lazy = false, -- we don't want to lazy load VimTeX
+		-- tag = "v2.15", -- uncomment to pin to a specific release
+		init = function()
+			-- VimTeX configuration goes here, e.g.
+			vim.g.vimtex_view_method = "skim"
+		end,
+	},
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
